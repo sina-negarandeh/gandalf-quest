@@ -75,6 +75,11 @@ class State:
         self.fellowships = fellowships
         self.fellowships_destination = fellowships_destination
         self.path = ""
+        self.evaluation = 0       # Used in Astar
+        
+    
+    def __lt__(self, other):
+        return self.evaluation < other.evaluation
 
     
     def goal_test(self):
