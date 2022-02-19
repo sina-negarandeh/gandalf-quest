@@ -24,8 +24,9 @@ def BFS(initial_state):
     return None
 
 
-initial_state = utils.read_from_file("./tests/test_07.txt")
-tic = time.time()
-print(BFS(initial_state).path)
-toc = time.time()
-print("Time: %f ms" % ((toc - tic) * 1000))
+if __name__ == "__main__":
+    initial_state = utils.read_from_file(os.sys.argv[1])
+    tic = time.time()
+    print("Path:", BFS(initial_state).path)
+    toc = time.time()
+    print("Time: %f ms" % ((toc - tic) * 1000))
