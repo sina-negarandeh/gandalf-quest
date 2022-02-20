@@ -46,13 +46,13 @@ class Gandalf:
         self.position = list(map(sum,zip(self.position, direction)))
 
         # age mitoonest yeki ro bezare sar jash
-        if self.fellowship:
-            if self.position in fellowships_destination:
-                self.fellowship = False
+        if self.fellowship != [-1, -1]:
+            if self.position == self.fellowship:
+                self.fellowship = [-1, -1]
                 fellowships_destination.remove(self.position)
         
-        if not self.fellowship and self.position in fellowships:
-            self.fellowship = True
+        if self.fellowship == [-1,-1] and self.position in fellowships:      
+            self.fellowship = fellowships_destination[fellowships.index(self.position)].copy()
             fellowships.remove(self.position)
 
 
@@ -101,10 +101,11 @@ class State:
         c1 = self.gandalf.position == other.gandalf.position
         c2 = self.fellowships == other.fellowships
         c3 = self.fellowships_destination == other.fellowships_destination
-        return c1 and c2 and c3
+        c4 = self.gandalf.steps_in_danger == other.gandalf.steps_in_danger
+        return c1 and c2 and c3 and c4
 
     def __hash__(self):
-        return hash(str(self.gandalf.position) + str(self.fellowships) + str(self.fellowships_destination))
+        return hash(str(self.gandalf.position) + str(self.fellowships) + str(self.fellowships_destination) + str(self.gandalf.steps_in_danger))
         
 
 
@@ -128,6 +129,6 @@ def read_from_file(filename):
     for _ in range(number_of_fellowships):
         fellowships_destination.append(list(map(int, file.readline().split())))
 
-    gandalf = Gandalf(initial_position, False, [0] * NUMBER_OF_ORCS)
+    gandalf = Gandalf(initial_position, [-1,-1], [0] * NUMBER_OF_ORCS)
     initial_state = State(gandalf, fellowships, fellowships_destination)
     return initial_state
