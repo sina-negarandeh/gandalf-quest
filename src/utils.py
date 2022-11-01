@@ -45,7 +45,6 @@ class Gandalf:
         previous_position = self.position
         self.position = list(map(sum,zip(self.position, direction)))
 
-        # age mitoonest yeki ro bezare sar jash
         if self.fellowship != [-1, -1]:
             if self.position == self.fellowship:
                 self.fellowship = [-1, -1]
@@ -57,12 +56,10 @@ class Gandalf:
 
 
         for idx, orc in enumerate(ORCS):
-            # age az mahdoode orci kharej shodim
             if orc.is_in_range(previous_position) and not orc.is_in_range(self.position):
                 self.steps_in_danger[idx] = 0
 
         for idx, orc in enumerate(ORCS):
-            # age too mahdoode y orc raftim
             if orc.is_in_range(self.position):
                 self.steps_in_danger[idx] += 1
             
@@ -75,7 +72,7 @@ class State:
         self.fellowships = fellowships
         self.fellowships_destination = fellowships_destination
         self.path = ""
-        self.evaluation = 0       # Used in Astar
+        self.evaluation = 0
         
     
     def __lt__(self, other):

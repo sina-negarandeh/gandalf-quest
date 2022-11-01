@@ -3,12 +3,10 @@ import time
 import os
 import bisect
 
-# tedad yar haye baghi moonde
 def heu1(state):
     return len(state.fellowships)
 
 
-# az beyn fasele haye gandalf ta yar ha, max begirim
 def heu2(state):
     max_distance = 0
     for fellowship in state.fellowships:
